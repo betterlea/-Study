@@ -1,0 +1,5 @@
+图标文件名命名必须是favicon.ico
+href:小标签图标的地址 可以是相对路径 也可以是绝对路径
+
+sizes:大小（可以不设置这个属性）最好是16*16
+<link rel="icon" href="./images/favicon.ico">
