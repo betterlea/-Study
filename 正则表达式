@@ -26,3 +26,10 @@
 ^(shift+6) :匹配一行的开始。例如正则表达式"^regex"能够匹配字符串"regex我会用"的开始，但是不能匹配"我会用regex"。
 ^另一个意思：非！（[^0-9）
 $ 匹配行结束符。例如正则表达式"浮云$"能够匹配字符串"一切都是浮云"的末尾，但是不能匹配字符串"浮云呀"
+
+regex对象的方法：
+regex.test(string)  在正则表达式中查找string，返回的是布尔值
+
+string对象对于正则表达式会用到的方法：
+string.match(regex) 在string中匹配regex,返回的是字符串数组；
+string.replace（regex，str） 在string中把regex用str替代
