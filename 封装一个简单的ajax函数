@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+// 假定给个以下参数
+ajax({
+    url:'http://localhost:8888/getuser/get',
+    type:'get',
+    bata:{
+        username:'libai',
+        userparsward:'123',
+    },
+    success:function(data){
+
+    },  
+});
+
+function ajax(obj){
+    var isHasKey = true;
+    if (obj.data) {// 先判断参数里是否有data
+        for(var key in obj.data){// 再判断data的值里是否有键key（就要遍历data的值json对象）,因为有可能只是做交互，没有要校验信息
+            isHasKey = key ? true:false;
+        }
+    }
+    // 以上都有的话，就可以拼接字符串username='libai'&userparsward='123'
+    var queryString = '';
+    if(isHasKey){
+        for(var key in obj.data){
+            queryString += (`${key}=${obj.bata[key]}&`);//"username='libai'&userparsward='123'&"
+        }
+        queryString = queryString.substring(0,queryString.lastIndexOf('&'));
+        queryString = queryString.replace(/'|"/g,'');
+    }
+    var xhr = new XMLHttpRequest();
+    //get请求参数在url中，post请求参数在send方法中
+    if (obj.type === 'get'&& queryString) {
+        xhr.open(obj.type,`${obj.url}?${queryString}`);
+    }else{
+        xhr.open(obj.type,obj.url);
+    }
+    xhr.setRequestHeader('Content-Type','appliction/x-www-form-urlencoded');
+    if (obj.type === 'post'&& queryString) {
+        xhr.send(queryString);
+    }else{
+        xhr.send();
+    }
+    xhr.addEventListener('readystatechange',function(){
+        if(xhr.readyState === 4 && xhr.status === 200){
+            obj.success(xhr.responseText);
+        }
+    });
+}
+</script>
+</html>
